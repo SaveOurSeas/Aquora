@@ -11,10 +11,12 @@ body {
     font-family: Arial, sans-serif;
     color: white;
     background: #050b18;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
-/* ===== ABSTRACT BACKGROUND LAYER ===== */
+/* =========================
+   ABSTRACT BACKGROUND SYSTEM
+========================= */
 .background {
     position: fixed;
     width: 100%;
@@ -23,55 +25,88 @@ body {
     overflow: hidden;
 }
 
-.orb {
+/* grid = engineering layer */
+.grid {
     position: absolute;
+    width: 200%;
+    height: 200%;
+    background-image:
+        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+    transform: rotate(12deg);
+    animation: gridMove 25s linear infinite;
+    opacity: 0.25;
+}
+
+@keyframes gridMove {
+    from { transform: translateY(0) rotate(12deg); }
+    to { transform: translateY(-60px) rotate(12deg); }
+}
+
+/* wave layer = water logic */
+.wave {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(0,183,255,0.12), transparent 60%);
+    animation: waveMove 14s ease-in-out infinite;
+}
+
+@keyframes waveMove {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.1) translateY(-30px); }
+}
+
+/* glow system */
+.glow {
+    position: absolute;
+    filter: blur(90px);
+    opacity: 0.35;
     border-radius: 50%;
-    filter: blur(60px);
-    opacity: 0.4;
-    animation: float 10s infinite ease-in-out;
 }
 
-.orb1 {
-    width: 300px;
-    height: 300px;
+.g1 {
+    width: 420px;
+    height: 420px;
     background: #00b7ff;
-    top: 10%;
-    left: 20%;
+    top: 15%;
+    left: 15%;
+    animation: float1 10s infinite ease-in-out;
 }
 
-.orb2 {
-    width: 400px;
-    height: 400px;
+.g2 {
+    width: 500px;
+    height: 500px;
     background: #3b82f6;
     bottom: 10%;
-    right: 15%;
+    right: 10%;
+    animation: float2 13s infinite ease-in-out;
 }
 
-.orb3 {
-    width: 250px;
-    height: 250px;
-    background: #00ffd5;
-    top: 60%;
-    left: 60%;
+@keyframes float1 {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-25px); }
 }
 
-@keyframes float {
-    0% { transform: translateY(0px) scale(1); }
-    50% { transform: translateY(-30px) scale(1.05); }
-    100% { transform: translateY(0px) scale(1); }
+@keyframes float2 {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(30px); }
 }
 
-/* ===== NAV ===== */
+/* =========================
+   NAVIGATION
+========================= */
 nav {
     position: fixed;
     top: 0;
     width: 100%;
+    padding: 15px 25px;
     display: flex;
     justify-content: space-between;
-    padding: 15px 25px;
+    background: rgba(0,0,0,0.25);
+    backdrop-filter: blur(12px);
     z-index: 10;
-    background: rgba(0,0,0,0.2);
-    backdrop-filter: blur(10px);
 }
 
 nav a {
@@ -84,13 +119,13 @@ nav a:hover {
     opacity: 1;
 }
 
-/* ===== PAGE SYSTEM ===== */
+/* =========================
+   PAGE SYSTEM
+========================= */
 section {
-    position: absolute;
-    width: 100%;
-    height: 100%;
     display: none;
     padding: 100px 40px;
+    position: relative;
     z-index: 2;
 }
 
@@ -102,7 +137,7 @@ section.active {
 @keyframes enter {
     from {
         opacity: 0;
-        transform: translateY(30px) scale(0.98);
+        transform: translateY(25px) scale(0.98);
         filter: blur(5px);
     }
     to {
@@ -112,18 +147,19 @@ section.active {
     }
 }
 
-/* ===== HERO ===== */
+/* =========================
+   HERO
+========================= */
 .hero {
     max-width: 800px;
 }
 
 .hero h1 {
     font-size: 60px;
-    letter-spacing: 2px;
 }
 
 .hero p {
-    opacity: 0.8;
+    opacity: 0.85;
     line-height: 1.6;
 }
 
@@ -132,14 +168,15 @@ button {
     padding: 12px 18px;
     border: none;
     border-radius: 12px;
-    background: rgba(0,183,255,0.8);
+    background: #00b7ff;
     color: white;
     cursor: pointer;
-    backdrop-filter: blur(10px);
 }
 
-/* ===== FLOATING CARDS ===== */
-.grid {
+/* =========================
+   GRID CARDS
+========================= */
+.grid3 {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 15px;
@@ -148,33 +185,36 @@ button {
 
 .card {
     background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.08);
     padding: 20px;
     border-radius: 16px;
-    backdrop-filter: blur(12px);
-    transform: translateY(20px);
     opacity: 0;
+    transform: translateY(20px);
     animation: cardIn 0.6s forwards;
 }
 
 @keyframes cardIn {
     to {
-        transform: translateY(0);
         opacity: 1;
+        transform: translateY(0);
     }
 }
 
-/* ===== CART ===== */
+/* =========================
+   CART
+========================= */
 .item {
     display: flex;
     justify-content: space-between;
-    margin-top: 10px;
     padding: 12px;
+    margin-top: 10px;
     background: rgba(255,255,255,0.06);
     border-radius: 12px;
 }
 
-/* ===== TOAST ===== */
+/* =========================
+   TOAST
+========================= */
 #popup {
     position: fixed;
     bottom: 20px;
@@ -191,9 +231,10 @@ button {
 
 <!-- BACKGROUND -->
 <div class="background">
-    <div class="orb orb1"></div>
-    <div class="orb orb2"></div>
-    <div class="orb orb3"></div>
+    <div class="grid"></div>
+    <div class="wave"></div>
+    <div class="glow g1"></div>
+    <div class="glow g2"></div>
 </div>
 
 <!-- NAV -->
@@ -208,28 +249,25 @@ button {
 
 <!-- HOME -->
 <section id="home" class="active">
+
     <div class="hero">
         <h1>Aquora</h1>
+
         <p>
-            A field-based water inspection system built around manual control and live environmental feedback.
-            Designed to move through real spaces and translate physical conditions into readable data instantly.
+            A manually controlled water inspection robot built for real environments.
+            It moves through physical spaces using Bluetooth control and sends live water readings
+            directly through AquaTalkie for immediate field analysis.
         </p>
+
         <button onclick="show('shop')">Enter System</button>
     </div>
 
-    <div class="grid">
-        <div class="card">
-            Manual Bluetooth Control
-        </div>
-
-        <div class="card">
-            Live Water Readings
-        </div>
-
-        <div class="card">
-            Field Deployment System
-        </div>
+    <div class="grid3">
+        <div class="card">Manual Bluetooth Control</div>
+        <div class="card">Live Sensor Readings</div>
+        <div class="card">Field Inspection System</div>
     </div>
+
 </section>
 
 <!-- SHOP -->
@@ -267,7 +305,7 @@ const phone = "201122450119";
 /* FORCE HOME */
 window.onload = () => show('home');
 
-/* SMOOTH PAGE SWITCH */
+/* PAGE SYSTEM */
 function show(id){
     document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
     document.getElementById(id).classList.add("active");
@@ -329,6 +367,7 @@ function toast(text){
     let p = document.getElementById("popup");
     p.innerText = text;
     p.style.display = "block";
+
     setTimeout(()=>p.style.display = "none", 1500);
 }
 
