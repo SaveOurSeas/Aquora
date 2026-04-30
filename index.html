@@ -9,27 +9,74 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #061a33, #0b2f57);
     color: white;
+    background: #050b18;
+    overflow: hidden;
 }
 
-/* NAV */
+/* ===== ABSTRACT BACKGROUND LAYER ===== */
+.background {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.4;
+    animation: float 10s infinite ease-in-out;
+}
+
+.orb1 {
+    width: 300px;
+    height: 300px;
+    background: #00b7ff;
+    top: 10%;
+    left: 20%;
+}
+
+.orb2 {
+    width: 400px;
+    height: 400px;
+    background: #3b82f6;
+    bottom: 10%;
+    right: 15%;
+}
+
+.orb3 {
+    width: 250px;
+    height: 250px;
+    background: #00ffd5;
+    top: 60%;
+    left: 60%;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-30px) scale(1.05); }
+    100% { transform: translateY(0px) scale(1); }
+}
+
+/* ===== NAV ===== */
 nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     padding: 15px 25px;
-    background: rgba(0,0,0,0.35);
-    backdrop-filter: blur(10px);
-    position: sticky;
-    top: 0;
     z-index: 10;
+    background: rgba(0,0,0,0.2);
+    backdrop-filter: blur(10px);
 }
 
 nav a {
-    color: white;
     margin-left: 15px;
     cursor: pointer;
-    text-decoration: none;
     opacity: 0.7;
 }
 
@@ -37,136 +84,104 @@ nav a:hover {
     opacity: 1;
 }
 
-/* PAGE SYSTEM (FIXED PROPERLY) */
+/* ===== PAGE SYSTEM ===== */
 section {
+    position: absolute;
+    width: 100%;
+    height: 100%;
     display: none;
-    padding: 40px;
+    padding: 100px 40px;
+    z-index: 2;
 }
 
 section.active {
     display: block;
-    animation: fadeIn 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    animation: enter 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-@keyframes fadeIn {
+@keyframes enter {
     from {
         opacity: 0;
-        transform: translateY(15px);
+        transform: translateY(30px) scale(0.98);
+        filter: blur(5px);
     }
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) scale(1);
+        filter: blur(0);
     }
 }
 
-/* HERO */
+/* ===== HERO ===== */
 .hero {
-    text-align: center;
-    margin-top: 60px;
+    max-width: 800px;
 }
 
 .hero h1 {
-    font-size: 48px;
+    font-size: 60px;
+    letter-spacing: 2px;
 }
 
 .hero p {
-    max-width: 800px;
-    margin: auto;
-    opacity: 0.9;
+    opacity: 0.8;
     line-height: 1.6;
 }
 
-.hero button {
+button {
     margin-top: 20px;
     padding: 12px 18px;
     border: none;
-    border-radius: 10px;
-    background: #00b7ff;
+    border-radius: 12px;
+    background: rgba(0,183,255,0.8);
     color: white;
     cursor: pointer;
+    backdrop-filter: blur(10px);
 }
 
-/* FEATURES */
-.features {
+/* ===== FLOATING CARDS ===== */
+.grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 15px;
     margin-top: 60px;
 }
 
-.feature-card {
-    background: rgba(255,255,255,0.06);
-    padding: 20px;
-    border-radius: 15px;
-    opacity: 0;
-    transform: translateY(20px);
-}
-
-.feature-card.show {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* SOCIAL PROOF */
-.social-proof {
-    margin-top: 80px;
-    text-align: center;
-}
-
-.testimonial {
-    background: rgba(255,255,255,0.05);
-    padding: 15px;
-    margin-top: 15px;
-    border-radius: 12px;
-    opacity: 0;
-    transform: scale(0.95);
-}
-
-.testimonial.show {
-    opacity: 1;
-    transform: scale(1);
-}
-
-/* SHOP */
 .card {
     background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
     padding: 20px;
-    margin-top: 15px;
-    border-radius: 15px;
+    border-radius: 16px;
+    backdrop-filter: blur(12px);
+    transform: translateY(20px);
+    opacity: 0;
+    animation: cardIn 0.6s forwards;
 }
 
-button {
-    margin-top: 10px;
-    padding: 10px 14px;
-    border: none;
-    border-radius: 8px;
-    background: #00b7ff;
-    color: white;
-    cursor: pointer;
+@keyframes cardIn {
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
-button:active {
-    transform: scale(0.96);
-}
-
-/* CART */
+/* ===== CART ===== */
 .item {
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
-    background: rgba(255,255,255,0.06);
     padding: 12px;
-    border-radius: 10px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 12px;
 }
 
-/* TOAST */
+/* ===== TOAST ===== */
 #popup {
     position: fixed;
     bottom: 20px;
     right: 20px;
     background: #00b7ff;
     padding: 12px 18px;
-    border-radius: 10px;
+    border-radius: 12px;
     display: none;
 }
 </style>
@@ -174,6 +189,14 @@ button:active {
 
 <body>
 
+<!-- BACKGROUND -->
+<div class="background">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+</div>
+
+<!-- NAV -->
 <nav>
     <div>Aquora</div>
     <div>
@@ -185,52 +208,28 @@ button:active {
 
 <!-- HOME -->
 <section id="home" class="active">
-
     <div class="hero">
         <h1>Aquora</h1>
-
         <p>
-            Aquora is a manually controlled water inspection robot designed for real environments.
-            It moves through physical spaces using Bluetooth control and delivers live water readings
-            directly to the operator through AquaTalkie — without automation or assumptions.
+            A field-based water inspection system built around manual control and live environmental feedback.
+            Designed to move through real spaces and translate physical conditions into readable data instantly.
         </p>
-
         <button onclick="show('shop')">Enter System</button>
     </div>
 
-    <div class="features">
-
-        <div class="feature-card">
-            <h3>Manual Control</h3>
-            <p>Full Bluetooth control over movement — operator stays in charge at all times.</p>
+    <div class="grid">
+        <div class="card">
+            Manual Bluetooth Control
         </div>
 
-        <div class="feature-card">
-            <h3>Live Data Flow</h3>
-            <p>Real-time sensor readings sent instantly during movement through the system.</p>
+        <div class="card">
+            Live Water Readings
         </div>
 
-        <div class="feature-card">
-            <h3>Field Operation</h3>
-            <p>Designed for real-world environments like farms, tanks, and testing zones.</p>
+        <div class="card">
+            Field Deployment System
         </div>
-
     </div>
-
-    <div class="social-proof">
-
-        <h2>System Purpose</h2>
-
-        <div class="testimonial">
-            <p>“A direct link between physical movement and live environmental data.”</p>
-        </div>
-
-        <div class="testimonial">
-            <p>“Built for inspection where fixed sensors are not enough.”</p>
-        </div>
-
-    </div>
-
 </section>
 
 <!-- SHOP -->
@@ -268,39 +267,12 @@ const phone = "201122450119";
 /* FORCE HOME */
 window.onload = () => show('home');
 
-/* PAGE SYSTEM */
+/* SMOOTH PAGE SWITCH */
 function show(id){
     document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
-    let page = document.getElementById(id);
-    page.classList.add("active");
+    document.getElementById(id).classList.add("active");
 
-    if(id === "home") animateHome();
-    if(id === "shop") animateShop();
     if(id === "cart") render();
-}
-
-/* HOME ANIMATION */
-function animateHome(){
-    document.querySelectorAll(".feature-card").forEach((c,i)=>{
-        c.classList.remove("show");
-        setTimeout(()=>c.classList.add("show"), i*150);
-    });
-
-    document.querySelectorAll(".testimonial").forEach((t,i)=>{
-        setTimeout(()=>t.classList.add("show"), i*200);
-    });
-}
-
-/* SHOP ANIMATION */
-function animateShop(){
-    document.querySelectorAll(".card").forEach((c,i)=>{
-        c.style.opacity = 0;
-        c.style.transform = "translateY(20px)";
-        setTimeout(()=>{
-            c.style.opacity = 1;
-            c.style.transform = "translateY(0)";
-        }, i*120);
-    });
 }
 
 /* CART */
@@ -309,7 +281,7 @@ function add(name, price){
     if(item) item.qty++;
     else cart.push({name, price, qty:1});
 
-    toast("Added to cart");
+    toast("Added");
 }
 
 function render(){
@@ -324,10 +296,7 @@ function render(){
         box.innerHTML += `
         <div class="item">
             <span>${i.name} x${i.qty}</span>
-            <span>
-                ${i.price * i.qty} EGP
-                <button onclick="removeItem(${index})">Remove</button>
-            </span>
+            <span>${i.price * i.qty} EGP <button onclick="removeItem(${index})">X</button></span>
         </div>`;
     });
 
@@ -340,19 +309,12 @@ function removeItem(i){
 }
 
 function checkout(){
-    if(cart.length === 0){
-        toast("Cart empty");
-        return;
-    }
-
     let total = cart.reduce((s,i)=>s+i.price*i.qty,0);
 
     let msg = "Aquora Order:%0A";
-
     cart.forEach(i=>{
         msg += `${i.name} x${i.qty}%0A`;
     });
-
     msg += `Total: ${total} EGP`;
 
     window.open(`https://wa.me/${phone}?text=${msg}`, "_blank");
@@ -363,12 +325,10 @@ function checkout(){
     toast("Order sent");
 }
 
-/* TOAST */
 function toast(text){
     let p = document.getElementById("popup");
     p.innerText = text;
     p.style.display = "block";
-
     setTimeout(()=>p.style.display = "none", 1500);
 }
 
