@@ -1,42 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Checkout</title>
-<style>
-body { font-family: Arial; background:#0b1e2d; color:white; text-align:center; padding:50px; }
-
-.box { background:#102c3d; padding:30px; display:inline-block; border-radius:10px; }
-
-button {
-    margin-top:20px;
-    padding:10px 20px;
-    background:#00d4ff;
-    border:none;
-    font-weight:bold;
-    cursor:pointer;
-}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="box">
+<nav>
 <h1>Checkout</h1>
+</nav>
 
-<p id="product"></p>
-<p id="price"></p>
+<div class="container">
 
-<button onclick="confirmBuy()">Confirm Purchase</button>
+<h2>Confirm Order</h2>
+
+<button onclick="pay()">Pay Now</button>
+
 </div>
 
 <script>
-let product = localStorage.getItem("product");
-let price = localStorage.getItem("price");
-
-document.getElementById("product").innerText = "Product: " + product;
-document.getElementById("price").innerText = "Price: $" + price;
-
-function confirmBuy(){
-    window.location.href = "confirmation.html";
+function pay() {
+    // Stripe TEST MODE placeholder
+    localStorage.removeItem("cart");
+    window.location = "confirmation.html";
 }
 </script>
 
