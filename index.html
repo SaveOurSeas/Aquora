@@ -1,101 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aquora | Save Our Seas</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Aquora | Smart Water Monitoring</title>
 
 <style>
+:root {
+    --bg: #071a26;
+    --card: #0e2a3b;
+    --accent: #00d4ff;
+    --text: #e6f4ff;
+    --muted: #9bb3c7;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Segoe UI", sans-serif;
+    font-family: system-ui, -apple-system, Segoe UI, sans-serif;
 }
 
 body {
-    background: #0b1e2d;
-    color: white;
+    background: var(--bg);
+    color: var(--text);
     line-height: 1.6;
 }
 
+/* NAV */
 header {
-    padding: 20px 10%;
+    position: sticky;
+    top: 0;
+    background: rgba(7, 26, 38, 0.85);
+    backdrop-filter: blur(10px);
+    padding: 18px 10%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(0,0,0,0.3);
-    position: sticky;
-    top: 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
 header h1 {
-    color: #00d4ff;
+    color: var(--accent);
+    font-size: 1.4rem;
+    letter-spacing: 1px;
 }
 
 nav a {
-    color: white;
-    margin-left: 20px;
+    color: var(--text);
+    margin-left: 18px;
     text-decoration: none;
+    font-size: 0.95rem;
+    opacity: 0.8;
+    transition: 0.2s;
 }
 
+nav a:hover {
+    opacity: 1;
+    color: var(--accent);
+}
+
+/* HERO */
 .hero {
-    height: 90vh;
+    height: 85vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    flex-direction: column;
-    padding: 20px;
+    padding: 0 20px;
 }
 
 .hero h2 {
     font-size: 3rem;
-    margin-bottom: 20px;
+    max-width: 800px;
+    margin-bottom: 15px;
 }
 
 .hero span {
-    color: #00d4ff;
+    color: var(--accent);
 }
 
-.hero button {
-    padding: 12px 25px;
+.hero p {
+    color: var(--muted);
+    max-width: 600px;
+    margin-bottom: 25px;
+}
+
+button {
+    padding: 12px 26px;
+    background: var(--accent);
     border: none;
-    background: #00d4ff;
-    color: black;
-    font-size: 16px;
+    color: #001018;
+    font-weight: 600;
+    border-radius: 8px;
     cursor: pointer;
-    border-radius: 5px;
+    transition: 0.2s;
 }
 
+button:hover {
+    transform: translateY(-2px);
+}
+
+/* SECTIONS */
 .section {
-    padding: 80px 10%;
+    padding: 90px 10%;
     text-align: center;
 }
 
 .section h2 {
-    margin-bottom: 20px;
     font-size: 2rem;
-    color: #00d4ff;
+    color: var(--accent);
+    margin-bottom: 12px;
 }
 
+.section p {
+    color: var(--muted);
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* CARDS */
 .cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    margin-top: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 22px;
+    margin-top: 40px;
 }
 
 .card {
-    background: #102c3d;
-    padding: 20px;
-    border-radius: 10px;
+    background: var(--card);
+    padding: 24px;
+    border-radius: 14px;
+    text-align: left;
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: 0.2s;
 }
 
+.card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(0, 212, 255, 0.3);
+}
+
+.card h3 {
+    margin-bottom: 10px;
+    color: var(--text);
+}
+
+/* FOOTER */
 footer {
+    padding: 25px;
     text-align: center;
-    padding: 20px;
-    background: #08141d;
+    font-size: 0.9rem;
+    color: var(--muted);
+    border-top: 1px solid rgba(255,255,255,0.05);
 }
 </style>
 </head>
@@ -112,44 +170,47 @@ footer {
 </header>
 
 <section class="hero">
-    <h2>Protect Our Oceans with <span>Aquora</span></h2>
-    <p>Real-time water monitoring to save marine life</p>
-    <button onclick="scrollToSection()">Learn More</button>
+    <h2>Smart Water Monitoring for a <span>Cleaner Future</span></h2>
+    <p>Aquora is an autonomous system that analyzes water quality in real-time using pH and turbidity sensors.</p>
+    <button onclick="document.getElementById('problem').scrollIntoView({behavior:'smooth'})">
+        Explore
+    </button>
 </section>
 
 <section id="problem" class="section">
     <h2>The Problem</h2>
-    <p>Polluted water blocks sunlight, destroying marine ecosystems and coral reefs.</p>
+    <p>Water pollution disrupts ecosystems, reduces oxygen levels, and threatens marine biodiversity worldwide.</p>
 </section>
 
 <section id="solution" class="section">
-    <h2>Our Solution</h2>
+    <h2>Our System</h2>
+
     <div class="cards">
         <div class="card">
-            <h3>Scout</h3>
-            <p>Measures pH and turbidity in real-time underwater.</p>
+            <h3>Aquora Unit</h3>
+            <p>Collects real-time pH and turbidity data from water sources.</p>
         </div>
+
         <div class="card">
-            <h3>AquaTalkie</h3>
-            <p>Receives data and sends alerts, warnings, and advice instantly.</p>
+            <h3>Data Processing</h3>
+            <p>Analyzes water quality and determines environmental risk levels.</p>
+        </div>
+
+        <div class="card">
+            <h3>Aqua Robot Link</h3>
+            <p>Sends processed data to the Aqua robot for automated response.</p>
         </div>
     </div>
 </section>
 
 <section id="contact" class="section">
     <h2>Contact</h2>
-    <p>Email: your@email.com</p>
+    <p>For collaboration or questions: your@email.com</p>
 </section>
 
 <footer>
-    <p>© 2026 Aquora. Save Our Seas.</p>
+    © 2026 Aquora — Environmental Robotics System
 </footer>
-
-<script>
-function scrollToSection() {
-    document.getElementById("problem").scrollIntoView({behavior: "smooth"});
-}
-</script>
 
 </body>
 </html>
