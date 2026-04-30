@@ -3,88 +3,58 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aquora System</title>
+<title>Aquora</title>
 
 <style>
 body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    background: radial-gradient(circle at top, #061a33, #020713);
-    color: #eaf2ff;
+    font-family: Arial, sans-serif;
+    background: #061a33;
+    color: white;
 }
 
-/* NAV */
 nav {
     display: flex;
     justify-content: space-between;
-    padding: 16px 10%;
-    background: rgba(0,0,0,0.5);
-    backdrop-filter: blur(20px);
-    position: sticky;
-    top: 0;
+    padding: 15px;
+    background: #00000055;
 }
 
 nav a {
-    color: #9bbcff;
-    margin-left: 15px;
+    color: white;
+    margin-left: 10px;
     cursor: pointer;
-    text-decoration: none;
 }
 
-/* SECTIONS */
 section {
     display: none;
-    padding: 90px 10%;
+    padding: 30px;
 }
 
 .active {
     display: block;
 }
 
-/* TITLE */
-.title {
-    font-size: 48px;
-    font-weight: 600;
-}
-
-/* CARDS */
 .card {
-    background: rgba(255,255,255,0.05);
-    padding: 18px;
-    border-radius: 14px;
-    margin-top: 15px;
-}
-
-/* BUTTONS */
-button {
-    padding: 10px 16px;
-    border-radius: 999px;
-    border: none;
-    background: #2f7bff;
-    color: white;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-button:hover {
-    transform: translateY(-1px);
-}
-
-/* CART ITEM */
-.item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px;
-    background: rgba(255,255,255,0.05);
+    background: #0d2a44;
+    padding: 15px;
     margin-top: 10px;
     border-radius: 10px;
 }
 
-/* REMOVE BUTTON */
-.remove {
-    background: #ff4d4d;
-    margin-left: 10px;
+button {
+    margin-top: 10px;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    background: #0d2a44;
+    padding: 10px;
+    border-radius: 8px;
 }
 </style>
 </head>
@@ -95,56 +65,39 @@ button:hover {
     <div>Aquora</div>
     <div>
         <a onclick="show('home')">Home</a>
-        <a onclick="show('shop')">System</a>
+        <a onclick="show('shop')">Shop</a>
         <a onclick="show('cart')">Cart</a>
-        <a onclick="show('order')">Order</a>
     </div>
 </nav>
 
-<!-- HOME -->
 <section id="home" class="active">
-    <div class="title">Our Vision</div>
-    <p style="color:#a9bce6; max-width:800px;">
-        Aquora is a dual-robot system that monitors water quality in real time using Scout (sensing) and AquaTalkie (analysis + display).
-    </p>
+    <h1>Aquora Vision</h1>
+    <p>Water monitoring system using Scout + AquaTalkie.</p>
 </section>
 
-<!-- SHOP -->
 <section id="shop">
-    <div class="title">System</div>
+    <h1>Shop</h1>
 
     <div class="card">
-        <h3>Full Aquora System</h3>
-        <p>Scout + AquaTalkie</p>
-        <b>45,000 EGP</b><br>
+        <h3>Full System</h3>
+        <p>45,000 EGP</p>
         <button onclick="add('Full System',45000)">Add to Cart</button>
     </div>
 
     <div class="card">
-        <h3>Rental System</h3>
-        <p>1,500 EGP per day</p>
-        <button onclick="add('Rental (1 Day)',1500)">Add to Cart</button>
+        <h3>Rental</h3>
+        <p>1,500 EGP/day</p>
+        <button onclick="add('Rental',1500)">Add to Cart</button>
     </div>
 </section>
 
-<!-- CART -->
 <section id="cart">
-    <div class="title">Cart</div>
+    <h1>Cart</h1>
 
     <div id="box"></div>
-    <h2 id="total"></h2>
+    <h3 id="total"></h3>
 
-    <button onclick="checkout()">Request Order</button>
-</section>
-
-<!-- ORDER -->
-<section id="order">
-    <div class="title">Order Ready ✔</div>
-    <p style="color:#a9bce6;">
-        Confirm your order via WhatsApp.
-    </p>
-
-    <button onclick="sendWhatsApp()">Open WhatsApp</button>
+    <button onclick="checkout()">Checkout</button>
 </section>
 
 <script>
@@ -152,7 +105,6 @@ button:hover {
 let cart = [];
 const phone = "201122450119";
 
-/* NAV */
 function show(id){
     document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
     document.getElementById(id).classList.add("active");
@@ -160,74 +112,54 @@ function show(id){
     if(id === "cart") render();
 }
 
-/* ADD ITEM */
 function add(name, price){
-    const item = cart.find(i => i.name === name);
+    let item = cart.find(i => i.name === name);
 
     if(item){
         item.qty++;
     } else {
         cart.push({name, price, qty:1});
     }
-
-    render();
 }
 
-/* REMOVE ITEM */
 function removeItem(index){
-    cart.splice(index, 1);
+    cart.splice(index,1);
     render();
 }
 
-/* RENDER CART */
 function render(){
-    const box = document.getElementById("box");
+    let box = document.getElementById("box");
     box.innerHTML = "";
 
     let total = 0;
 
-    cart.forEach((item, index) => {
-        total += item.price * item.qty;
+    cart.forEach((i,index) => {
+        total += i.price * i.qty;
 
-        const div = document.createElement("div");
-        div.className = "item";
-
-        div.innerHTML = `
-            <span>${item.name} × ${item.qty}</span>
-            <div>
-                <span>${item.price * item.qty} EGP</span>
-                <button class="remove" onclick="removeItem(${index})">Remove</button>
+        box.innerHTML += `
+            <div class="item">
+                <span>${i.name} x${i.qty}</span>
+                <span>
+                    ${i.price * i.qty} EGP
+                    <button onclick="removeItem(${index})">Remove</button>
+                </span>
             </div>
         `;
-
-        box.appendChild(div);
     });
 
-    document.getElementById("total").innerText =
-        "Total: " + total + " EGP";
+    document.getElementById("total").innerText = "Total: " + total + " EGP";
 }
 
-/* CHECKOUT */
 function checkout(){
-    if(cart.length === 0){
-        alert("Cart is empty");
-        return;
-    }
-    show("order");
-}
+    let total = cart.reduce((s,i)=>s+i.price*i.qty,0);
 
-/* WHATSAPP */
-function sendWhatsApp(){
-
-    let total = cart.reduce((sum,i)=>sum+i.price*i.qty,0);
-
-    let msg = "Aquora Order:%0A%0A";
+    let msg = "Aquora Order:%0A";
 
     cart.forEach(i=>{
-        msg += `- ${i.name} x${i.qty}%0A`;
+        msg += `${i.name} x${i.qty}%0A`;
     });
 
-    msg += `%0ATotal: ${total} EGP`;
+    msg += `Total: ${total}`;
 
     window.open(`https://wa.me/${phone}?text=${msg}`, "_blank");
 }
