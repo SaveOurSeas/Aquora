@@ -14,7 +14,7 @@ body {
     overflow-x: hidden;
 }
 
-/* GLOBAL ANIMATION SYSTEM */
+/* GLOBAL SMOOTH MOTION */
 * {
     transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -44,17 +44,17 @@ nav a:hover {
     transform: translateY(-2px);
 }
 
-/* PAGE SYSTEM */
+/* PAGE SYSTEM (FIXED - NO CONFLICTS) */
 section {
     position: absolute;
     width: 100%;
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(25px);
     pointer-events: none;
     padding: 40px;
 }
 
-.active {
+section.active {
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
@@ -68,6 +68,7 @@ section {
 
 .hero h1 {
     font-size: 48px;
+    margin-bottom: 10px;
 }
 
 .hero button {
@@ -178,108 +179,43 @@ button:active {
 </nav>
 
 <!-- HOME -->
-<section id="home" class="active">
-
+<section id="home">
     <div class="hero">
         <h1>Aquora</h1>
         <p>
-            A Bluetooth-controlled water monitoring robot designed to collect real-time readings and transmit them through AquaTalkie.
-            Built for field testing, water system inspection, and practical on-site monitoring.
+            Stop guessing water performance. Control it, measure it, and understand it in real time using a Bluetooth-controlled robot connected to AquaTalkie.
         </p>
         <button onclick="show('shop')">Explore System</button>
     </div>
 
     <div class="features">
-
         <div class="feature-card">
             <h3>Manual Bluetooth Control</h3>
-            <p>
-                Fully controlled by the user in real time, allowing precise movement and direct operation in the field.
-            </p>
+            <p>Direct control of robot movement in real time.</p>
         </div>
 
         <div class="feature-card">
-            <h3>Live Water Readings</h3>
-            <p>
-                Displays real sensor data instantly through AquaTalkie for fast decision-making and monitoring.
-            </p>
+            <h3>Live Readings</h3>
+            <p>Instant water data displayed through AquaTalkie.</p>
         </div>
 
         <div class="feature-card">
-            <h3>Field-Ready Design</h3>
-            <p>
-                Built for real environments such as farms, water systems, and testing zones—not simulations.
-            </p>
+            <h3>Field Ready</h3>
+            <p>Built for real environments and testing scenarios.</p>
         </div>
-
     </div>
 
     <div class="social-proof">
-
-        <h2>What it’s used for</h2>
+        <h2>Why it matters</h2>
 
         <div class="testimonial">
-            <p>
-                “Designed for practical water system inspection and on-site measurement tasks.”
-            </p>
+            <p>“Designed for real-world water monitoring tasks.”</p>
         </div>
 
         <div class="testimonial">
-            <p>
-                “Useful in environments where manual water data collection is required.”
-            </p>
+            <p>“Simple control, reliable data, practical use.”</p>
         </div>
-
-        <div class="testimonial">
-            <p>
-                “A simple but effective tool for real-world water monitoring.”
-            </p>
-        </div>
-
     </div>
-
-</section>
-
-        <div class="feature-card">
-            <h3>Leak & Waste Detection</h3>
-            <p>
-                Automatically identify leaks, abnormal consumption patterns, and inefficiencies before they become costly problems.
-            </p>
-        </div>
-
-        <div class="feature-card">
-            <h3>Remote Smart Control</h3>
-            <p>
-                Control irrigation and water systems from anywhere with instant response and minimal effort.
-            </p>
-        </div>
-
-    </div>
-
-    <div class="social-proof">
-
-        <h2>Why people trust Aquora</h2>
-
-        <div class="testimonial">
-            <p>
-                “Aquora completely changed how we manage water efficiency. It removed guesswork and gave us real control.”
-            </p>
-        </div>
-
-        <div class="testimonial">
-            <p>
-                “Simple system, powerful impact. It actually solves real infrastructure problems instead of just reporting them.”
-            </p>
-        </div>
-
-        <div class="testimonial">
-            <p>
-                “If you deal with water management, this is not optional anymore—it’s necessary.”
-            </p>
-        </div>
-
-    </div>
-
 </section>
 
 <!-- SHOP -->
@@ -314,7 +250,10 @@ button:active {
 let cart = [];
 const phone = "201122450119";
 
-/* PAGE SWITCH */
+/* GUARANTEED HOME LOAD */
+window.onload = () => show('home');
+
+/* PAGE SYSTEM */
 function show(id){
     document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
     document.getElementById(id).classList.add("active");
@@ -351,11 +290,10 @@ function animateShop(){
 /* CART */
 function add(name, price){
     let item = cart.find(i => i.name === name);
-
     if(item) item.qty++;
     else cart.push({name, price, qty:1});
 
-    toast("Added");
+    toast("Added to cart");
 }
 
 function render(){
@@ -364,7 +302,7 @@ function render(){
 
     let total = 0;
 
-    cart.forEach((i, index)=>{
+    cart.forEach((i,index)=>{
         total += i.price * i.qty;
 
         box.innerHTML += `
