@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aquora Store</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #000;
+    color: #fff;
+}
+
+/* NAV */
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 8%;
+    position: sticky;
+    top: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(20px);
+}
+
+nav a {
+    color: #aaa;
+    margin-left: 15px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+nav a:hover {
+    color: white;
+}
+
+/* SECTIONS */
+section {
+    display: none;
+    padding: 80px 10%;
+}
+
+.active {
+    display: block;
+}
+
+/* CARDS */
+.card {
+    background: #111;
+    padding: 20px;
+    border-radius: 16px;
+    margin: 10px 0;
+}
+
+/* BUTTON */
+button {
+    padding: 10px 16px;
+    border-radius: 20px;
+    border: none;
+    background: white;
+    color: black;
+    cursor: pointer;
+}
+
+/* CART STYLE */
+.item {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+    padding: 10px;
+    background: #111;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <div>Aquora</div>
+    <div>
+        <a onclick="show('home')">Home</a>
+        <a onclick="show('shop')">Shop</a>
+        <a onclick="show('cart')">Cart</a>
+    </div>
+</nav>
+
+<!-- HOME -->
+<section id="home" class="active">
+    <h1>Smart Water Monitoring System</h1>
+    <p>Rent Aquora robots for water quality analysis.</p>
+</section>
+
+<!-- SHOP -->
+<section id="shop">
+    <h1>Shop</h1>
+
+    <div class="card">
+        <h2>Aquora Robot</h2>
+        <p>1500 EGP / day</p>
+        <button onclick="add('Aquora Robot',1500)">Add to Cart</button>
+    </div>
+
+    <div class="card">
+        <h2>Sensor Kit</h2>
+        <p>1000 EGP / day</p>
+        <button onclick="add('Sensor Kit',1000)">Add to Cart</button>
+    </div>
+</section>
+
+<!-- CART -->
+<section id="cart">
+    <h1>Your Cart</h1>
+    <div id="cartItems"></div>
+    <h2 id="total"></h2>
+
+    <button onclick="checkout()">Checkout</button>
+</section>
+
+<!-- CHECKOUT -->
+<section id="checkout">
+    <h1>Checkout</h1>
+    <p>Confirm your order</p>
+
+    <button onclick="confirmOrder()">Pay Now</button>
+</section>
+
+<!-- CONFIRMATION -->
+<section id="done">
+    <h1>Order Confirmed 🎉</h1>
+    <p>Your Aquora robot is booked.</p>
+</section>
+
+<script>
+let cart = [];
+
+function show(page){
+    document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
+    document.getElementById(page).classList.add("active");
+
+    if(page === "cart") render();
+}
+
+/* ADD TO CART */
+function add(name, price){
+    let item = cart.find(i => i.name === name);
+
+    if(item){
+        item.qty++;
+    } else {
+        cart.push({name, price, qty:1});
+    }
+}
+
+/* RENDER CART */
+function render(){
+    let box = document.getElementById("cartItems");
+    box.innerHTML = "";
+
+    let total = 0;
+
+    cart.forEach((i, index) => {
+        total += i.price * i.qty;
+
+        box.innerHTML += `
+        <div class="item">
+            <span>${i.name} (x${i.qty})</span>
+            <span>${i.price * i.qty} EGP</span>
+        </div>`;
+    });
+
+    document.getElementById("total").innerText = "Total: " + total + " EGP";
+}
+
+/* CHECKOUT */
+function checkout(){
+    show("checkout");
+}
+
+/* CONFIRM */
+function confirmOrder(){
+    cart = [];
+    show("done");
+}
+</script>
+
+</body>
+</html>
