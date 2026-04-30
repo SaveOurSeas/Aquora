@@ -14,7 +14,7 @@ body {
     overflow-x: hidden;
 }
 
-/* smooth global easing (Framer-like) */
+/* GLOBAL ANIMATION SYSTEM */
 * {
     transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -28,6 +28,7 @@ nav {
     backdrop-filter: blur(10px);
     position: sticky;
     top: 0;
+    z-index: 10;
 }
 
 nav a {
@@ -43,13 +44,14 @@ nav a:hover {
     transform: translateY(-2px);
 }
 
-/* PAGE SYSTEM (Framer-style transition) */
+/* PAGE SYSTEM */
 section {
     position: absolute;
     width: 100%;
     opacity: 0;
     transform: translateY(20px);
     pointer-events: none;
+    padding: 40px;
 }
 
 .active {
@@ -58,57 +60,90 @@ section {
     pointer-events: auto;
 }
 
-/* HOME */
+/* HERO */
 .hero {
     text-align: center;
-    margin-top: 80px;
-    animation: fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    margin-top: 60px;
 }
 
 .hero h1 {
     font-size: 48px;
-    margin-bottom: 10px;
 }
 
-.hero p {
-    opacity: 0.8;
+.hero button {
+    margin-top: 20px;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 10px;
+    background: #00b7ff;
+    color: white;
+    cursor: pointer;
 }
 
-/* SHOP CARDS */
+/* FEATURES */
+.features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 60px;
+}
+
+.feature-card {
+    background: rgba(255,255,255,0.06);
+    padding: 20px;
+    border-radius: 15px;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.feature-card.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* TESTIMONIALS */
+.social-proof {
+    margin-top: 80px;
+    text-align: center;
+}
+
+.testimonial {
+    background: rgba(255,255,255,0.05);
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 12px;
+    opacity: 0;
+    transform: scale(0.95);
+}
+
+.testimonial.show {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* SHOP */
 .card {
     background: rgba(255,255,255,0.06);
     padding: 20px;
     margin-top: 15px;
     border-radius: 15px;
-    transform: translateY(20px);
-    opacity: 0;
 }
 
-.card.show {
-    transform: translateY(0);
-    opacity: 1;
-}
-
-/* BUTTONS */
 button {
     margin-top: 10px;
     padding: 10px 14px;
-    cursor: pointer;
     border: none;
     border-radius: 8px;
     background: #00b7ff;
     color: white;
-}
-
-button:hover {
-    transform: scale(1.05);
+    cursor: pointer;
 }
 
 button:active {
     transform: scale(0.96);
 }
 
-/* CART ITEMS */
+/* CART */
 .item {
     display: flex;
     justify-content: space-between;
@@ -116,16 +151,9 @@ button:active {
     background: rgba(255,255,255,0.06);
     padding: 12px;
     border-radius: 10px;
-    opacity: 0;
-    transform: translateX(-10px);
 }
 
-.item.show {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-/* POPUP */
+/* TOAST */
 #popup {
     position: fixed;
     bottom: 20px;
@@ -134,22 +162,6 @@ button:active {
     padding: 12px 18px;
     border-radius: 10px;
     display: none;
-    transform: translateY(10px);
-}
-#popup.show {
-    transform: translateY(0);
-}
-
-/* KEYFRAME */
-@keyframes fadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }
 </style>
 </head>
@@ -165,13 +177,47 @@ button:active {
     </div>
 </nav>
 
+<!-- HOME -->
 <section id="home" class="active">
+
     <div class="hero">
         <h1>Aquora</h1>
         <p>Smart water monitoring system powered by Scout + AquaTalkie</p>
+        <button onclick="show('shop')">Explore System</button>
     </div>
+
+    <div class="features">
+        <div class="feature-card">
+            <h3>Real-Time Monitoring</h3>
+            <p>Live tracking of water systems.</p>
+        </div>
+
+        <div class="feature-card">
+            <h3>AI Detection</h3>
+            <p>Detect leaks and inefficiency automatically.</p>
+        </div>
+
+        <div class="feature-card">
+            <h3>Smart Control</h3>
+            <p>Remote control irrigation system.</p>
+        </div>
+    </div>
+
+    <div class="social-proof">
+        <h2>Trusted by testers</h2>
+
+        <div class="testimonial">
+            <p>"Clean system and very efficient in real use."</p>
+        </div>
+
+        <div class="testimonial">
+            <p>"Actually solves water monitoring problems."</p>
+        </div>
+    </div>
+
 </section>
 
+<!-- SHOP -->
 <section id="shop">
     <h1>Shop</h1>
 
@@ -188,6 +234,7 @@ button:active {
     </div>
 </section>
 
+<!-- CART -->
 <section id="cart">
     <h1>Cart</h1>
     <div id="box"></div>
@@ -202,39 +249,48 @@ button:active {
 let cart = [];
 const phone = "201122450119";
 
+/* PAGE SWITCH */
 function show(id){
     document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
-    let page = document.getElementById(id);
-    page.classList.add("active");
+    document.getElementById(id).classList.add("active");
 
-    if(id === "shop") animateCards();
+    if(id === "home") animateHome();
+    if(id === "shop") animateShop();
     if(id === "cart") render();
 }
 
-/* stagger animation like Framer */
-function animateCards(){
-    let cards = document.querySelectorAll(".card");
-    cards.forEach((c,i)=>{
+/* HOME ANIMATION */
+function animateHome(){
+    document.querySelectorAll(".feature-card").forEach((c,i)=>{
         c.classList.remove("show");
-        setTimeout(()=>c.classList.add("show"), i*120);
+        setTimeout(()=>c.classList.add("show"), i*150);
+    });
+
+    document.querySelectorAll(".testimonial").forEach((t,i)=>{
+        setTimeout(()=>t.classList.add("show"), i*200);
     });
 }
 
+/* SHOP ANIMATION */
+function animateShop(){
+    document.querySelectorAll(".card").forEach((c,i)=>{
+        c.style.opacity = 0;
+        c.style.transform = "translateY(20px)";
+        setTimeout(()=>{
+            c.style.opacity = 1;
+            c.style.transform = "translateY(0)";
+        }, i*120);
+    });
+}
+
+/* CART */
 function add(name, price){
     let item = cart.find(i => i.name === name);
 
-    if(item){
-        item.qty++;
-    } else {
-        cart.push({name, price, qty:1});
-    }
+    if(item) item.qty++;
+    else cart.push({name, price, qty:1});
 
     toast("Added");
-}
-
-function removeItem(index){
-    cart.splice(index,1);
-    render();
 }
 
 function render(){
@@ -243,27 +299,25 @@ function render(){
 
     let total = 0;
 
-    cart.forEach((i,index) => {
+    cart.forEach((i, index)=>{
         total += i.price * i.qty;
 
         box.innerHTML += `
-            <div class="item">
-                <span>${i.name} x${i.qty}</span>
-                <span>
-                    ${i.price * i.qty} EGP
-                    <button onclick="removeItem(${index})">Remove</button>
-                </span>
-            </div>
-        `;
+        <div class="item">
+            <span>${i.name} x${i.qty}</span>
+            <span>
+                ${i.price * i.qty} EGP
+                <button onclick="removeItem(${index})">Remove</button>
+            </span>
+        </div>`;
     });
 
     document.getElementById("total").innerText = "Total: " + total + " EGP";
+}
 
-    // animate items in
-    let items = document.querySelectorAll(".item");
-    items.forEach((el,i)=>{
-        setTimeout(()=>el.classList.add("show"), i*80);
-    });
+function removeItem(i){
+    cart.splice(i,1);
+    render();
 }
 
 function checkout(){
@@ -290,14 +344,13 @@ function checkout(){
     toast("Order sent");
 }
 
+/* TOAST */
 function toast(text){
-    let popup = document.getElementById("popup");
-    popup.innerText = text;
-    popup.style.display = "block";
+    let p = document.getElementById("popup");
+    p.innerText = text;
+    p.style.display = "block";
 
-    setTimeout(()=>{
-        popup.style.display = "none";
-    }, 1800);
+    setTimeout(()=>p.style.display = "none", 1500);
 }
 
 </script>
