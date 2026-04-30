@@ -22,6 +22,7 @@ nav {
     backdrop-filter: blur(10px);
     position: sticky;
     top: 0;
+    z-index: 10;
 }
 
 nav a {
@@ -44,11 +45,7 @@ section {
 
 section.active {
     display: block;
-}
-
-/* SMOOTH ANIMATION WRAPPER */
-.fade-in {
-    animation: fadeIn 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    animation: fadeIn 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @keyframes fadeIn {
@@ -70,6 +67,13 @@ section.active {
 
 .hero h1 {
     font-size: 48px;
+}
+
+.hero p {
+    max-width: 800px;
+    margin: auto;
+    opacity: 0.9;
+    line-height: 1.6;
 }
 
 .hero button {
@@ -103,7 +107,7 @@ section.active {
     transform: translateY(0);
 }
 
-/* TESTIMONIALS */
+/* SOCIAL PROOF */
 .social-proof {
     margin-top: 80px;
     text-align: center;
@@ -131,7 +135,6 @@ section.active {
     border-radius: 15px;
 }
 
-/* BUTTONS */
 button {
     margin-top: 10px;
     padding: 10px 14px;
@@ -181,41 +184,53 @@ button:active {
 </nav>
 
 <!-- HOME -->
-<section id="home">
+<section id="home" class="active">
+
     <div class="hero">
         <h1>Aquora</h1>
-        <p>Bluetooth-controlled water monitoring robot connected to AquaTalkie.</p>
-        <button onclick="show('shop')">Explore System</button>
+
+        <p>
+            Aquora is a manually controlled water inspection robot designed for real environments.
+            It moves through physical spaces using Bluetooth control and delivers live water readings
+            directly to the operator through AquaTalkie — without automation or assumptions.
+        </p>
+
+        <button onclick="show('shop')">Enter System</button>
     </div>
 
     <div class="features">
+
         <div class="feature-card">
             <h3>Manual Control</h3>
-            <p>Bluetooth-driven movement for full user control.</p>
+            <p>Full Bluetooth control over movement — operator stays in charge at all times.</p>
         </div>
 
         <div class="feature-card">
-            <h3>Live Readings</h3>
-            <p>Instant sensor data shown in AquaTalkie.</p>
+            <h3>Live Data Flow</h3>
+            <p>Real-time sensor readings sent instantly during movement through the system.</p>
         </div>
 
         <div class="feature-card">
-            <h3>Field Use</h3>
-            <p>Built for real environments and testing scenarios.</p>
+            <h3>Field Operation</h3>
+            <p>Designed for real-world environments like farms, tanks, and testing zones.</p>
         </div>
+
     </div>
 
     <div class="social-proof">
-        <h2>What it’s used for</h2>
+
+        <h2>System Purpose</h2>
 
         <div class="testimonial">
-            <p>“Reliable for real water system inspection.”</p>
+            <p>“A direct link between physical movement and live environmental data.”</p>
         </div>
 
         <div class="testimonial">
-            <p>“Simple control, accurate readings.”</p>
+            <p>“Built for inspection where fixed sensors are not enough.”</p>
         </div>
+
     </div>
+
 </section>
 
 <!-- SHOP -->
@@ -250,22 +265,14 @@ button:active {
 let cart = [];
 const phone = "201122450119";
 
-/* FORCE HOME ON START */
+/* FORCE HOME */
 window.onload = () => show('home');
 
 /* PAGE SYSTEM */
 function show(id){
-    document.querySelectorAll("section").forEach(s => {
-        s.classList.remove("active");
-        s.classList.remove("fade-in");
-    });
-
+    document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
     let page = document.getElementById(id);
     page.classList.add("active");
-
-    setTimeout(() => {
-        page.classList.add("fade-in");
-    }, 10);
 
     if(id === "home") animateHome();
     if(id === "shop") animateShop();
@@ -302,7 +309,7 @@ function add(name, price){
     if(item) item.qty++;
     else cart.push({name, price, qty:1});
 
-    toast("Added");
+    toast("Added to cart");
 }
 
 function render(){
