@@ -390,10 +390,18 @@ function removeItem(i){
 }
 
 function checkout(){
-    let total = cart.reduce((s,i)=>s+i.price*i.qty,0);
 
-    // 🔴 BLOCK EMPTY ORDER
-    if(total === 0){
+    if(cart.length === 0){
+        toast("Please add to order");
+        return;
+    }
+
+    let total = 0;
+    cart.forEach(i => {
+        total += i.price * i.qty;
+    });
+
+    if(total <= 0){
         toast("Please add to order");
         return;
     }
