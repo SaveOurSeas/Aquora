@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Shop</title>
+<style>
+body { font-family: Arial; background:#0b1e2d; color:white; margin:0; }
+header { padding:20px; text-align:center; background:#081522; }
+
+.products { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; padding:40px; }
+
+.card { background:#102c3d; padding:20px; border-radius:10px; }
+
+button {
+    padding:10px;
+    background:#00d4ff;
+    border:none;
+    font-weight:bold;
+    cursor:pointer;
+}
+</style>
+</head>
+<body>
+
+<header><h1>Shop Aquora</h1></header>
+
+<div class="products">
+
+<div class="card">
+<h2>Aquora Sensor</h2>
+<p>Measures pH & turbidity</p>
+<button onclick="buy('Aquora Sensor',120)">Buy</button>
+</div>
+
+<div class="card">
+<h2>Aqua Robot</h2>
+<p>Autonomous water handler</p>
+<button onclick="buy('Aqua Robot',300)">Buy</button>
+</div>
+
+</div>
+
+<script>
+function buy(name, price){
+    localStorage.setItem("product", name);
+    localStorage.setItem("price", price);
+    window.location.href = "checkout.html";
+}
+</script>
+
+</body>
+</html>
