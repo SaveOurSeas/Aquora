@@ -11,12 +11,6 @@ body {
     font-family: Arial, sans-serif;
     background: linear-gradient(135deg, #061a33, #0b2f57);
     color: white;
-    overflow-x: hidden;
-}
-
-/* GLOBAL SMOOTH MOTION */
-* {
-    transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* NAV */
@@ -28,7 +22,6 @@ nav {
     backdrop-filter: blur(10px);
     position: sticky;
     top: 0;
-    z-index: 10;
 }
 
 nav a {
@@ -41,23 +34,32 @@ nav a {
 
 nav a:hover {
     opacity: 1;
-    transform: translateY(-2px);
 }
 
-/* PAGE SYSTEM (FIXED - NO CONFLICTS) */
+/* PAGE SYSTEM (FIXED PROPERLY) */
 section {
-    position: absolute;
-    width: 100%;
-    opacity: 0;
-    transform: translateY(25px);
-    pointer-events: none;
+    display: none;
     padding: 40px;
 }
 
 section.active {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
+    display: block;
+}
+
+/* SMOOTH ANIMATION WRAPPER */
+.fade-in {
+    animation: fadeIn 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* HERO */
@@ -68,7 +70,6 @@ section.active {
 
 .hero h1 {
     font-size: 48px;
-    margin-bottom: 10px;
 }
 
 .hero button {
@@ -130,6 +131,7 @@ section.active {
     border-radius: 15px;
 }
 
+/* BUTTONS */
 button {
     margin-top: 10px;
     padding: 10px 14px;
@@ -182,38 +184,36 @@ button:active {
 <section id="home">
     <div class="hero">
         <h1>Aquora</h1>
-        <p>
-            Stop guessing water performance. Control it, measure it, and understand it in real time using a Bluetooth-controlled robot connected to AquaTalkie.
-        </p>
+        <p>Bluetooth-controlled water monitoring robot connected to AquaTalkie.</p>
         <button onclick="show('shop')">Explore System</button>
     </div>
 
     <div class="features">
         <div class="feature-card">
-            <h3>Manual Bluetooth Control</h3>
-            <p>Direct control of robot movement in real time.</p>
+            <h3>Manual Control</h3>
+            <p>Bluetooth-driven movement for full user control.</p>
         </div>
 
         <div class="feature-card">
             <h3>Live Readings</h3>
-            <p>Instant water data displayed through AquaTalkie.</p>
+            <p>Instant sensor data shown in AquaTalkie.</p>
         </div>
 
         <div class="feature-card">
-            <h3>Field Ready</h3>
+            <h3>Field Use</h3>
             <p>Built for real environments and testing scenarios.</p>
         </div>
     </div>
 
     <div class="social-proof">
-        <h2>Why it matters</h2>
+        <h2>What it’s used for</h2>
 
         <div class="testimonial">
-            <p>“Designed for real-world water monitoring tasks.”</p>
+            <p>“Reliable for real water system inspection.”</p>
         </div>
 
         <div class="testimonial">
-            <p>“Simple control, reliable data, practical use.”</p>
+            <p>“Simple control, accurate readings.”</p>
         </div>
     </div>
 </section>
@@ -250,13 +250,22 @@ button:active {
 let cart = [];
 const phone = "201122450119";
 
-/* GUARANTEED HOME LOAD */
+/* FORCE HOME ON START */
 window.onload = () => show('home');
 
 /* PAGE SYSTEM */
 function show(id){
-    document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
-    document.getElementById(id).classList.add("active");
+    document.querySelectorAll("section").forEach(s => {
+        s.classList.remove("active");
+        s.classList.remove("fade-in");
+    });
+
+    let page = document.getElementById(id);
+    page.classList.add("active");
+
+    setTimeout(() => {
+        page.classList.add("fade-in");
+    }, 10);
 
     if(id === "home") animateHome();
     if(id === "shop") animateShop();
@@ -293,7 +302,7 @@ function add(name, price){
     if(item) item.qty++;
     else cart.push({name, price, qty:1});
 
-    toast("Added to cart");
+    toast("Added");
 }
 
 function render(){
