@@ -89,27 +89,34 @@ body {
     50% { transform: translateY(30px); }
 }
 
-/* ================= NAV ================= */
+/* ================= NAV (PROPER CENTER SYSTEM) ================= */
 nav {
     position: fixed;
     top: 0;
     width: 100%;
     padding: 15px 25px;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
     background: rgba(0,0,0,0.25);
     backdrop-filter: blur(12px);
     z-index: 10;
 }
 
-/* CENTER LINKS */
+.logo {
+    justify-self: start;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
 .nav-links {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    justify-self: center;
     display: flex;
     gap: 25px;
+}
+
+.nav-right {
+    justify-self: end;
 }
 
 nav a {
@@ -222,13 +229,15 @@ button {
 
 <!-- NAV -->
 <nav>
-    <div>Aquora</div>
+    <div class="logo">Aquora</div>
 
     <div class="nav-links">
         <a onclick="show('home')">Home</a>
         <a onclick="show('shop')">Shop</a>
         <a onclick="show('cart')">Cart</a>
     </div>
+
+    <div class="nav-right"></div>
 </nav>
 
 <!-- HOME -->
@@ -238,8 +247,8 @@ button {
         <h1>Aquora</h1>
 
         <p>
-            A manually controlled water inspection robot built for real environments.
-            It navigates physical spaces using Bluetooth control and delivers live water readings
+            A manually controlled water inspection robot designed for real environments.
+            It moves through physical spaces using Bluetooth control and delivers live water readings
             directly to the operator through AquaTalkie in real time.
         </p>
 
