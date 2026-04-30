@@ -11,6 +11,12 @@ body {
     font-family: Arial, sans-serif;
     background: linear-gradient(135deg, #061a33, #0b2f57);
     color: white;
+    overflow-x: hidden;
+}
+
+/* smooth global easing (Framer-like) */
+* {
+    transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* NAV */
@@ -18,13 +24,10 @@ nav {
     display: flex;
     justify-content: space-between;
     padding: 15px 25px;
-    background: rgba(0,0,0,0.4);
+    background: rgba(0,0,0,0.35);
     backdrop-filter: blur(10px);
-}
-
-nav div:first-child {
-    font-weight: bold;
-    font-size: 18px;
+    position: sticky;
+    top: 0;
 }
 
 nav a {
@@ -32,53 +35,61 @@ nav a {
     margin-left: 15px;
     cursor: pointer;
     text-decoration: none;
-    opacity: 0.8;
-    transition: 0.2s;
+    opacity: 0.7;
 }
 
 nav a:hover {
     opacity: 1;
+    transform: translateY(-2px);
 }
 
-/* SECTIONS */
+/* PAGE SYSTEM (Framer-style transition) */
 section {
-    display: none;
-    padding: 40px;
+    position: absolute;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
 }
 
 .active {
-    display: block;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
 }
 
 /* HOME */
 .hero {
     text-align: center;
-    margin-top: 60px;
+    margin-top: 80px;
+    animation: fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .hero h1 {
-    font-size: 42px;
+    font-size: 48px;
     margin-bottom: 10px;
 }
 
 .hero p {
     opacity: 0.8;
-    font-size: 18px;
 }
 
-/* CARDS */
+/* SHOP CARDS */
 .card {
     background: rgba(255,255,255,0.06);
     padding: 20px;
     margin-top: 15px;
     border-radius: 15px;
-    transition: 0.2s;
+    transform: translateY(20px);
+    opacity: 0;
 }
 
-.card:hover {
-    transform: translateY(-3px);
+.card.show {
+    transform: translateY(0);
+    opacity: 1;
 }
 
+/* BUTTONS */
 button {
     margin-top: 10px;
     padding: 10px 14px;
@@ -87,11 +98,14 @@ button {
     border-radius: 8px;
     background: #00b7ff;
     color: white;
-    transition: 0.2s;
 }
 
 button:hover {
-    background: #0096d4;
+    transform: scale(1.05);
+}
+
+button:active {
+    transform: scale(0.96);
 }
 
 /* CART ITEMS */
@@ -102,7 +116,13 @@ button:hover {
     background: rgba(255,255,255,0.06);
     padding: 12px;
     border-radius: 10px;
-    align-items: center;
+    opacity: 0;
+    transform: translateX(-10px);
+}
+
+.item.show {
+    opacity: 1;
+    transform: translateX(0);
 }
 
 /* POPUP */
@@ -114,6 +134,22 @@ button:hover {
     padding: 12px 18px;
     border-radius: 10px;
     display: none;
+    transform: translateY(10px);
+}
+#popup.show {
+    transform: translateY(0);
+}
+
+/* KEYFRAME */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 </style>
 </head>
@@ -129,7 +165,6 @@ button:hover {
     </div>
 </nav>
 
-<!-- HOME -->
 <section id="home" class="active">
     <div class="hero">
         <h1>Aquora</h1>
@@ -137,7 +172,6 @@ button:hover {
     </div>
 </section>
 
-<!-- SHOP -->
 <section id="shop">
     <h1>Shop</h1>
 
@@ -154,15 +188,13 @@ button:hover {
     </div>
 </section>
 
-<!-- CART -->
 <section id="cart">
-    <h1>Your Cart</h1>
+    <h1>Cart</h1>
     <div id="box"></div>
     <h3 id="total"></h3>
     <button onclick="checkout()">Checkout</button>
 </section>
 
-<!-- POPUP -->
 <div id="popup"></div>
 
 <script>
@@ -172,9 +204,20 @@ const phone = "201122450119";
 
 function show(id){
     document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
-    document.getElementById(id).classList.add("active");
+    let page = document.getElementById(id);
+    page.classList.add("active");
 
+    if(id === "shop") animateCards();
     if(id === "cart") render();
+}
+
+/* stagger animation like Framer */
+function animateCards(){
+    let cards = document.querySelectorAll(".card");
+    cards.forEach((c,i)=>{
+        c.classList.remove("show");
+        setTimeout(()=>c.classList.add("show"), i*120);
+    });
 }
 
 function add(name, price){
@@ -186,7 +229,7 @@ function add(name, price){
         cart.push({name, price, qty:1});
     }
 
-    toast("Added to cart");
+    toast("Added");
 }
 
 function removeItem(index){
@@ -215,11 +258,17 @@ function render(){
     });
 
     document.getElementById("total").innerText = "Total: " + total + " EGP";
+
+    // animate items in
+    let items = document.querySelectorAll(".item");
+    items.forEach((el,i)=>{
+        setTimeout(()=>el.classList.add("show"), i*80);
+    });
 }
 
 function checkout(){
     if(cart.length === 0){
-        toast("Cart is empty");
+        toast("Cart empty");
         return;
     }
 
@@ -241,15 +290,14 @@ function checkout(){
     toast("Order sent");
 }
 
-/* CLEAN POPUP INSTEAD OF UGLY STATUS TEXT */
 function toast(text){
     let popup = document.getElementById("popup");
     popup.innerText = text;
     popup.style.display = "block";
 
-    setTimeout(() => {
+    setTimeout(()=>{
         popup.style.display = "none";
-    }, 2000);
+    }, 1800);
 }
 
 </script>
