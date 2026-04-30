@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aquora Checkout</title>
+<title>Aquora System</title>
 
 <style>
 body {
@@ -88,7 +88,7 @@ button {
 
     <div class="card">
         <h3>Full System (Scout + AquaTalkie)</h3>
-        <p>Ownership of full monitoring ecosystem</p>
+        <p>Ownership of full environmental intelligence system</p>
         <b>45,000 EGP</b>
         <button onclick="add('Full System',45000)">Add to Cart</button>
     </div>
@@ -113,9 +113,9 @@ button {
 
 <!-- DONE -->
 <section id="done">
-    <div class="title">Order Request Sent ✔</div>
+    <div class="title">Order Sent ✔</div>
     <p style="color:#a9bce6;">
-        You will be contacted on WhatsApp to confirm payment and delivery.
+        Your request has been sent. You will confirm via WhatsApp.
     </p>
 
     <button onclick="sendWhatsApp()">Open WhatsApp</button>
@@ -124,6 +124,9 @@ button {
 <script>
 
 let cart = [];
+
+/* YOUR NUMBER (FIXED FORMAT) */
+const phone = "201122450119";
 
 function show(id){
     document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
@@ -162,25 +165,21 @@ function checkout(){
         alert("Cart is empty");
         return;
     }
-
     show("done");
 }
 
-/* WHATSAPP MESSAGE GENERATOR */
+/* WHATSAPP MESSAGE */
 function sendWhatsApp(){
 
     let total = cart.reduce((sum,i)=>sum+i.price*i.qty,0);
 
-    let message = "Hello, I want to order Aquora system:%0A";
+    let message = "Hello, I want to order Aquora system:%0A%0A";
 
     cart.forEach(i=>{
         message += `- ${i.name} x${i.qty}%0A`;
     });
 
     message += `%0ATotal: ${total} EGP`;
-
-    // 🔴 CHANGE THIS NUMBER
-    let phone = "201234567890";
 
     let url = `https://wa.me/${phone}?text=${message}`;
 
