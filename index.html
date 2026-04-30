@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aquora Store</title>
+<title>Aquora System</title>
 
 <style>
 body {
@@ -22,20 +22,19 @@ nav {
     top: 0;
     background: rgba(0,0,0,0.7);
     backdrop-filter: blur(25px);
-    border-bottom: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
 nav div:first-child {
     font-weight: 600;
-    letter-spacing: 0.5px;
 }
 
 nav a {
     margin-left: 18px;
     color: #a1a1a6;
     text-decoration: none;
-    font-size: 14px;
     cursor: pointer;
+    font-size: 14px;
 }
 
 nav a:hover {
@@ -46,7 +45,7 @@ nav a:hover {
 section {
     display: none;
     padding: 100px 10%;
-    animation: fade 0.4s ease;
+    animation: fade 0.5s ease;
 }
 
 .active {
@@ -54,28 +53,29 @@ section {
 }
 
 @keyframes fade {
-    from { opacity: 0; transform: translateY(10px); }
+    from { opacity: 0; transform: translateY(12px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
 /* HERO */
-.hero-title {
-    font-size: 52px;
+.title {
+    font-size: 54px;
     font-weight: 600;
     letter-spacing: -1px;
 }
 
-.hero-sub {
+.subtitle {
     color: #a1a1a6;
     font-size: 18px;
-    max-width: 600px;
+    max-width: 700px;
     margin-top: 15px;
+    line-height: 1.6;
 }
 
 /* CARDS */
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 20px;
     margin-top: 40px;
 }
@@ -85,24 +85,22 @@ section {
     border: 1px solid rgba(255,255,255,0.08);
     border-radius: 18px;
     padding: 22px;
-    backdrop-filter: blur(10px);
-    transition: 0.2s;
+    transition: 0.25s;
 }
 
 .card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(255,255,255,0.2);
+    transform: translateY(-5px);
+    border-color: rgba(255,255,255,0.25);
 }
 
 .card h3 {
     margin: 0;
-    font-size: 18px;
 }
 
 .card p {
     color: #a1a1a6;
     font-size: 14px;
-    margin-top: 8px;
+    line-height: 1.5;
 }
 
 /* BUTTON */
@@ -111,26 +109,21 @@ button {
     padding: 10px 16px;
     border-radius: 999px;
     border: none;
-    background: #fff;
-    color: #000;
+    background: white;
+    color: black;
     font-weight: 500;
     cursor: pointer;
 }
 
-/* CART */
-.item {
-    display: flex;
-    justify-content: space-between;
-    padding: 14px;
-    background: rgba(255,255,255,0.04);
-    border-radius: 12px;
-    margin-bottom: 10px;
-}
-
-.total {
-    margin-top: 20px;
-    font-size: 18px;
-    color: #fff;
+/* FLOW BOX */
+.flow {
+    margin-top: 40px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 20px;
+    border-radius: 16px;
+    line-height: 1.8;
+    color: #a1a1a6;
 }
 </style>
 </head>
@@ -138,119 +131,95 @@ button {
 <body>
 
 <nav>
-    <div>Aquora</div>
+    <div>Aquora System</div>
     <div>
-        <a onclick="show('home')">Home</a>
-        <a onclick="show('shop')">Shop</a>
-        <a onclick="show('cart')">Cart</a>
+        <a onclick="show('home')">Overview</a>
+        <a onclick="show('system')">System</a>
+        <a onclick="show('business')">Business</a>
     </div>
 </nav>
 
 <!-- HOME -->
 <section id="home" class="active">
-    <div class="hero-title">Smart water monitoring system</div>
-    <div class="hero-sub">
-        Aquora is an autonomous robotics platform designed to measure water quality in real time using pH and turbidity sensors.
+    <div class="title">Aquora</div>
+
+    <div class="subtitle">
+        A dual-agent aquatic intelligence system designed to convert environmental water conditions into actionable digital insight through autonomous robotics and real-time analysis.
+    </div>
+
+    <div class="flow">
+        Not a single robot.<br>
+        Not a sensor kit.<br><br>
+
+        A distributed environmental intelligence network.
     </div>
 </section>
 
-<!-- SHOP -->
-<section id="shop">
-    <div class="hero-title">Shop</div>
-    <div class="hero-sub">Rent Aquora systems for environmental monitoring.</div>
+<!-- SYSTEM -->
+<section id="system">
+    <div class="title">System Architecture</div>
 
     <div class="grid">
 
         <div class="card">
-            <h3>Aquora Robot</h3>
-            <p>Autonomous water analysis unit.</p>
-            <p><b>1500 EGP / day</b></p>
-            <button onclick="add('Aquora Robot',1500)">Add</button>
+            <h3>Scout Unit</h3>
+            <p>
+            The field intelligence layer.  
+            Deployed directly into aquatic environments to collect real-time pH and turbidity data.
+            </p>
+            <p><b>Role:</b> Environmental sensing agent</p>
         </div>
 
         <div class="card">
-            <h3>Sensor Kit</h3>
-            <p>Portable pH + turbidity module.</p>
-            <p><b>1000 EGP / day</b></p>
-            <button onclick="add('Sensor Kit',1000)">Add</button>
+            <h3>AquaTalkie Station</h3>
+            <p>
+            The analytical core. Receives, processes, and visualizes incoming environmental data streams.
+            </p>
+            <p><b>Role:</b> Data interpretation hub</p>
         </div>
 
     </div>
+
+    <div class="flow">
+        Flow: Scout → Environment → Data Capture → Return → AquaTalkie Processing → Visualization
+    </div>
 </section>
 
-<!-- CART -->
-<section id="cart">
-    <div class="hero-title">Cart</div>
+<!-- BUSINESS -->
+<section id="business">
+    <div class="title">Business Model</div>
 
-    <div id="cartBox"></div>
-    <div class="total" id="total"></div>
+    <div class="grid">
 
-    <button onclick="checkout()">Checkout</button>
-</section>
+        <div class="card">
+            <h3>Full System Purchase</h3>
+            <p>
+                Complete Aquora ecosystem including Scout + AquaTalkie station.
+            </p>
+            <p><b>Price: 45,000 EGP</b></p>
+        </div>
 
-<!-- CHECKOUT -->
-<section id="checkout">
-    <div class="hero-title">Checkout</div>
-    <p style="color:#a1a1a6;">Confirm your rental</p>
+        <div class="card">
+            <h3>Rental Model</h3>
+            <p>
+                Temporary deployment of full system for environmental monitoring projects.
+            </p>
+            <p><b>1,000 EGP / day</b></p>
+        </div>
 
-    <button onclick="confirmOrder()">Pay</button>
-</section>
+    </div>
 
-<!-- DONE -->
-<section id="done">
-    <div class="hero-title">Confirmed ✔</div>
-    <div class="hero-sub">Your Aquora system has been reserved successfully.</div>
+    <div class="flow">
+        Value proposition is not hardware.<br>
+        It is continuous environmental intelligence delivery.
+    </div>
 </section>
 
 <script>
-
-let cart = [];
-
 function show(page){
     document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
     document.getElementById(page).classList.add("active");
-
-    if(page === "cart") render();
 }
-
-function add(name, price){
-    let item = cart.find(i => i.name === name);
-
-    if(item){
-        item.qty++;
-    } else {
-        cart.push({name, price, qty:1});
-    }
-}
-
-function render(){
-    let box = document.getElementById("cartBox");
-    box.innerHTML = "";
-
-    let total = 0;
-
-    cart.forEach(i => {
-        total += i.price * i.qty;
-
-        box.innerHTML += `
-        <div class="item">
-            <span>${i.name} × ${i.qty}</span>
-            <span>${i.price * i.qty} EGP</span>
-        </div>`;
-    });
-
-    document.getElementById("total").innerText = "Total: " + total + " EGP";
-}
-
-function checkout(){
-    show("checkout");
-}
-
-function confirmOrder(){
-    cart = [];
-    show("done");
-}
-
 </script>
 
 </body>
