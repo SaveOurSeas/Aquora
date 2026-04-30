@@ -392,10 +392,18 @@ function removeItem(i){
 function checkout(){
     let total = cart.reduce((s,i)=>s+i.price*i.qty,0);
 
+    // 🔴 BLOCK EMPTY ORDER
+    if(total === 0){
+        toast("Please add to order");
+        return;
+    }
+
     let msg = "Aquora Order:%0A";
+
     cart.forEach(i=>{
         msg += `${i.name} x${i.qty}%0A`;
     });
+
     msg += `Total: ${total} EGP`;
 
     window.open(`https://wa.me/${phone}?text=${msg}`, "_blank");
