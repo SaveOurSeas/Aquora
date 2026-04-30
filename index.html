@@ -21,6 +21,7 @@ nav {
     backdrop-filter: blur(20px);
     position: sticky;
     top: 0;
+    border-bottom: 1px solid rgba(120,180,255,0.15);
 }
 
 nav a {
@@ -28,20 +29,37 @@ nav a {
     margin-left: 15px;
     cursor: pointer;
     text-decoration: none;
+    font-size: 14px;
 }
 
 section {
     display: none;
     padding: 90px 10%;
+    animation: fade 0.5s ease;
 }
 
 .active { display: block; }
 
-.title {
-    font-size: 48px;
-    font-weight: 600;
+@keyframes fade {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
+.title {
+    font-size: 52px;
+    font-weight: 600;
+    letter-spacing: -1px;
+}
+
+.subtitle {
+    color: #a9bce6;
+    max-width: 800px;
+    line-height: 1.6;
+    margin-top: 15px;
+    font-size: 18px;
+}
+
+/* CARDS */
 .card {
     background: rgba(255,255,255,0.05);
     padding: 18px;
@@ -76,26 +94,57 @@ button {
 <nav>
     <div>Aquora</div>
     <div>
-        <a onclick="show('shop')">Shop</a>
+        <a onclick="show('home')">Home</a>
+        <a onclick="show('shop')">System</a>
         <a onclick="show('cart')">Cart</a>
-        <a onclick="show('done')">Status</a>
     </div>
 </nav>
 
-<!-- SHOP -->
-<section id="shop" class="active">
-    <div class="title">Aquora System</div>
+<!-- HOME / VISION -->
+<section id="home" class="active">
+    <div class="title">Our Vision</div>
+
+    <div class="subtitle">
+        Aquora was built to rethink how we understand water environments.  
+        Today, water pollution is often invisible until it becomes irreversible.
+        We aim to change that.
+        <br><br>
+
+        Aquora is a dual-agent aquatic intelligence system designed to continuously
+        observe, interpret, and translate water conditions into actionable insight.
+    </div>
 
     <div class="card">
-        <h3>Full System (Scout + AquaTalkie)</h3>
-        <p>Ownership of full environmental intelligence system</p>
+        <b>We don’t build robots.</b><br>
+        We build environmental awareness systems.
+    </div>
+
+    <div class="card">
+        <b>Mission</b><br>
+        To make water quality measurable in real time anywhere on Earth.
+    </div>
+
+    <div class="card">
+        <b>System Philosophy</b><br>
+        Scout = sensing reality<br>
+        AquaTalkie = interpreting reality
+    </div>
+</section>
+
+<!-- SHOP -->
+<section id="shop">
+    <div class="title">System</div>
+
+    <div class="card">
+        <h3>Full Aquora System</h3>
+        <p>Scout + AquaTalkie integrated intelligence network</p>
         <b>45,000 EGP</b>
         <button onclick="add('Full System',45000)">Add to Cart</button>
     </div>
 
     <div class="card">
         <h3>Rental System</h3>
-        <p>Daily deployment of Aquora system</p>
+        <p>Daily deployment for monitoring projects</p>
         <b>1,500 EGP / day</b>
         <button onclick="add('Rental (1 Day)',1500)">Add to Cart</button>
     </div>
@@ -114,8 +163,9 @@ button {
 <!-- DONE -->
 <section id="done">
     <div class="title">Order Sent ✔</div>
+
     <p style="color:#a9bce6;">
-        Your request has been sent. You will confirm via WhatsApp.
+        You will confirm your order manually via WhatsApp.
     </p>
 
     <button onclick="sendWhatsApp()">Open WhatsApp</button>
@@ -125,7 +175,6 @@ button {
 
 let cart = [];
 
-/* YOUR NUMBER (FIXED FORMAT) */
 const phone = "201122450119";
 
 function show(id){
@@ -168,12 +217,11 @@ function checkout(){
     show("done");
 }
 
-/* WHATSAPP MESSAGE */
 function sendWhatsApp(){
 
     let total = cart.reduce((sum,i)=>sum+i.price*i.qty,0);
 
-    let message = "Hello, I want to order Aquora system:%0A%0A";
+    let message = "Hello, I want to order Aquora:%0A%0A";
 
     cart.forEach(i=>{
         message += `- ${i.name} x${i.qty}%0A`;
@@ -181,9 +229,7 @@ function sendWhatsApp(){
 
     message += `%0ATotal: ${total} EGP`;
 
-    let url = `https://wa.me/${phone}?text=${message}`;
-
-    window.open(url, "_blank");
+    window.open(`https://wa.me/${phone}?text=${message}`, "_blank");
 }
 
 </script>
