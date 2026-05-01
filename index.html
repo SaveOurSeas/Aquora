@@ -214,6 +214,16 @@ button {
     border-radius: 12px;
     display: none;
 }
+.fade-slide {
+    opacity: 0;
+    transform: translateX(60px);
+    transition: all 0.8s ease;
+}
+
+.fade-slide.show {
+    opacity: 1;
+    transform: translateX(0);
+}
 
 }
 </style>
@@ -252,10 +262,9 @@ button {
             We all love summer beaches and clear oceans — but beneath the surface, a silent problem is growing.
             Water quality is changing in ways most people never see until it’s too late.
         </p>
-      <div style="margin-top:25px;">
-    <img src="https://github.com/SaveOurSeas/Aquora/blob/main/WhatsApp_Image_2026-05-01_at_00.50.57__1_-removebg-preview.png?raw=true"
-         style="width:100%; max-width:600px; border-radius:16px; box-shadow:0 0 20px rgba(0,183,255,0.2);">
-</div>
+     <img src="https://raw.githubusercontent.com/SaveOurSeas/Aquora/main/WhatsApp_Image_2026-05-01_at_00.50.57__1_-removebg-preview.png"
+     class="fade-slide"
+     style="width:100%; max-width:400px; border-radius:16px;">
         <p>
             High turbidity and unstable pH levels reduce sunlight penetration,
             damaging coral reefs, underwater plants, and the marine food chain that depends on them.
@@ -467,6 +476,17 @@ function toast(text){
 
     setTimeout(()=>p.style.display = "none", 1500);
 }
+    const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+        }
+    });
+});
+
+document.querySelectorAll(".fade-slide").forEach(el => {
+    observer.observe(el);
+  });
 
 </script>
 
