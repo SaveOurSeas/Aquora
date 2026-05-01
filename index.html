@@ -51,7 +51,7 @@ body {
     width: 400px;
     height: 400px;
     background: #00b7ff;
-    top: 20%;
+    top: 15%;
     left: 10%;
 }
 
@@ -89,8 +89,8 @@ nav {
 }
 
 nav a {
-    opacity: 0.6;
     cursor: pointer;
+    opacity: 0.6;
     transition: 0.2s;
 }
 
@@ -110,11 +110,11 @@ section.active {
     display: block;
 }
 
-/* ================= STORY SYSTEM ================= */
+/* ================= STORY ================= */
 .story {
     max-width: 1000px;
     margin: auto;
-    padding: 90px 0;
+    padding: 80px 0;
 }
 
 .story h1 {
@@ -160,6 +160,27 @@ section.active {
 .card:hover {
     transform: translateY(-5px);
     border-color: rgba(0,183,255,0.4);
+}
+
+/* ================= BUTTON ================= */
+button {
+    margin-top: 15px;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 12px;
+    background: #00b7ff;
+    color: white;
+    cursor: pointer;
+}
+
+/* ================= CART ITEM ================= */
+.item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+    margin-top: 10px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 12px;
 }
 
 /* ================= IMAGE ================= */
@@ -237,35 +258,31 @@ img {
 <div class="story story-section" style="display:flex; gap:40px; flex-wrap:wrap; align-items:center;">
     <div style="flex:1; min-width:280px;">
         <h2>What’s happening underwater</h2>
-        <p>
-            Water pollution silently disrupts coral reefs and marine life.
-        </p>
+        <p>Pollution disrupts coral reefs and marine life silently.</p>
     </div>
 
-    <div style="flex:1; min-width:280px; display:flex; justify-content:center;">
+    <div style="flex:1; display:flex; justify-content:center;">
         <img src="https://raw.githubusercontent.com/SaveOurSeas/Aquora/main/WhatsApp_Image_2026-05-01_at_00.50.57__1_-removebg-preview.png">
     </div>
 </div>
 
-<!-- SOLUTION -->
+<!-- SYSTEM -->
 <div class="story story-section">
     <h2>Our solution</h2>
-    <p>
-        Aquora monitors water conditions in real time using Scout and AquaTalkie.
-    </p>
+    <p>Aquora uses Scout and AquaTalkie to monitor water conditions in real time.</p>
 </div>
 
-<!-- SYSTEM -->
+<!-- CARDS -->
 <div class="story story-section grid3">
 
     <div class="card">
         <h3>Scout</h3>
-        <p>Collects live water data.</p>
+        <p>Collects live environmental water data.</p>
     </div>
 
     <div class="card">
         <h3>AquaTalkie</h3>
-        <p>Converts data into alerts.</p>
+        <p>Converts data into real-time alerts.</p>
     </div>
 
     <div class="card">
@@ -275,44 +292,127 @@ img {
 
 </div>
 
-<!-- CTA -->
+<!-- SOCIAL -->
 <div class="story story-section">
     <h2>Connect with Aquora</h2>
-    <p>Follow our journey building ocean protection technology.</p>
+    <p>Follow our journey and updates.</p>
+
+    <div style="display:flex; gap:15px; margin-top:15px; flex-wrap:wrap;">
+
+        <a href="https://www.instagram.com/aquora.co" target="_blank"
+        style="padding:10px 14px; background:rgba(255,255,255,0.06); border-radius:10px; text-decoration:none; color:white;">
+        Instagram</a>
+
+        <a href="https://www.tiktok.com/@aquora.co" target="_blank"
+        style="padding:10px 14px; background:rgba(255,255,255,0.06); border-radius:10px; text-decoration:none; color:white;">
+        TikTok</a>
+
+    </div>
 </div>
 
 </section>
 
 <!-- SHOP -->
 <section id="shop">
-    <h1>Shop</h1>
-    <div class="card">
-        <h3>Full System</h3>
-        <p>45,000 EGP</p>
+    <div class="story">
+        <h1>Shop</h1>
+
+        <div class="card">
+            <h3>Full System</h3>
+            <p>45,000 EGP</p>
+            <button onclick="add('Full System',45000)">Add to Cart</button>
+        </div>
+
+        <div class="card">
+            <h3>Rental</h3>
+            <p>1,500 EGP/day</p>
+            <button onclick="add('Rental',1500)">Add to Cart</button>
+        </div>
+
     </div>
 </section>
 
 <!-- CART -->
 <section id="cart">
-    <h1>Cart</h1>
+    <div class="story">
+        <h1>Cart</h1>
+
+        <div id="box"></div>
+        <h3 id="total"></h3>
+
+        <button onclick="checkout()">Checkout</button>
+    </div>
 </section>
 
 <script>
 
-/* PAGE SWITCH */
+let cart = [];
+const phone = "201122450119";
+
+/* NAV */
 function show(id){
     document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
     document.getElementById(id).classList.add("active");
 }
 
+/* CART */
+function add(name, price){
+    let item = cart.find(i => i.name === name);
+    if(item) item.qty++;
+    else cart.push({name, price, qty:1});
+}
+
+/* RENDER */
+function render(){
+    let box = document.getElementById("box");
+    box.innerHTML = "";
+
+    let total = 0;
+
+    cart.forEach(i=>{
+        total += i.price * i.qty;
+
+        box.innerHTML += `
+        <div class="item">
+            <span>${i.name} x${i.qty}</span>
+            <span>${i.price * i.qty} EGP</span>
+        </div>`;
+    });
+
+    document.getElementById("total").innerText = "Total: " + total + " EGP";
+}
+
+/* CHECKOUT */
+function checkout(){
+
+    if(cart.length === 0){
+        alert("Cart empty");
+        return;
+    }
+
+    let msg = "Aquora Order:%0A";
+    let total = 0;
+
+    cart.forEach(i=>{
+        total += i.price * i.qty;
+        msg += `${i.name} x${i.qty}%0A`;
+    });
+
+    msg += "Total: " + total + " EGP";
+
+    window.open(`https://wa.me/${phone}?text=${msg}`, "_blank");
+
+    cart = [];
+}
+
 /* SCROLL ANIMATION */
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
+const observer = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
         if(e.isIntersecting) e.target.classList.add("show");
     });
-}, { threshold: 0.15 });
+});
 
-document.querySelectorAll(".story-section").forEach(el => {
+document.querySelectorAll(".story-section").forEach(el=>{
     observer.observe(el);
 });
 
