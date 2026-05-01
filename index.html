@@ -270,31 +270,30 @@ button {
 
 <!-- HOME -->
 
+
 <section id="home" class="active">
 
-    <!-- HEADER (LOGO TOP RIGHT + NAV TOP LEFT) -->
+    <!-- HEADER AREA (kept simple, no clutter) -->
     <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 0;">
 
-        <!-- NAV -->
         <div style="display:flex; gap:15px;">
-            <a onclick="show('home')" style="color:white; cursor:pointer;">Home</a>
-            <a onclick="show('shop')" style="color:white; cursor:pointer;">Shop</a>
-            <a onclick="show('cart')" style="color:white; cursor:pointer;">Cart</a>
+            <a onclick="show('home')" style="color:white; cursor:pointer; text-decoration:none;">Home</a>
+            <a onclick="show('shop')" style="color:white; cursor:pointer; text-decoration:none;">Shop</a>
+            <a onclick="show('cart')" style="color:white; cursor:pointer; text-decoration:none;">Cart</a>
         </div>
 
-        <!-- LOGO -->
         <img src="YOUR_LOGO_LINK"
-             style="width:45px; height:45px; border-radius:10px; object-fit:cover;">
+             style="width:42px; height:42px; border-radius:10px; object-fit:cover;">
     </div>
 
     <!-- HERO -->
-    <div class="hero" style="display:flex; align-items:center; gap:40px; flex-wrap:wrap; margin-top:20px;">
+    <div class="hero" style="display:flex; align-items:center; justify-content:space-between; gap:50px; flex-wrap:wrap; margin-top:20px;">
 
         <!-- TEXT -->
-        <div style="flex:1; min-width:280px;">
-            <h1>Aquora System</h1>
+        <div style="flex:1; min-width:300px;">
+            <h1 style="margin-bottom:15px;">Aquora System</h1>
 
-            <p>
+            <p style="margin-bottom:15px;">
                 We all love summer beaches and clear oceans — but beneath the surface, a silent problem is growing.
                 Water quality is changing in ways most people never see until it’s too late.
             </p>
@@ -306,10 +305,12 @@ button {
         </div>
 
         <!-- IMAGE -->
-        <div style="flex:1; min-width:280px; display:flex; justify-content:flex-end; padding-top:20px;">
+        <div style="flex:1; min-width:300px; display:flex; justify-content:flex-end; padding-top:20px; padding-right:25px;">
+
             <img src="https://raw.githubusercontent.com/SaveOurSeas/Aquora/main/WhatsApp_Image_2026-05-01_at_00.50.57__1_-removebg-preview.png"
                  class="fade-slide"
-                 style="width:100%; max-width:320px; border-radius:16px; box-shadow:0 10px 20px rgba(0,183,255,0.2);">
+                 style="width:100%; max-width:340px; border-radius:16px; box-shadow:0 10px 20px rgba(0,183,255,0.2);">
+
         </div>
 
     </div>
