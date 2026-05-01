@@ -269,10 +269,26 @@ button {
 </nav>
 
 <!-- HOME -->
+
 <section id="home" class="active">
 
-    <!-- HERO WITH IMAGE + TEXT (CLEAN LAYOUT) -->
-    <div class="hero" style="display:flex; align-items:center; gap:40px; flex-wrap:wrap;">
+    <!-- HEADER (LOGO TOP RIGHT + NAV TOP LEFT) -->
+    <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 0;">
+
+        <!-- NAV -->
+        <div style="display:flex; gap:15px;">
+            <a onclick="show('home')" style="color:white; cursor:pointer;">Home</a>
+            <a onclick="show('shop')" style="color:white; cursor:pointer;">Shop</a>
+            <a onclick="show('cart')" style="color:white; cursor:pointer;">Cart</a>
+        </div>
+
+        <!-- LOGO -->
+        <img src="YOUR_LOGO_LINK"
+             style="width:45px; height:45px; border-radius:10px; object-fit:cover;">
+    </div>
+
+    <!-- HERO -->
+    <div class="hero" style="display:flex; align-items:center; gap:40px; flex-wrap:wrap; margin-top:20px;">
 
         <!-- TEXT -->
         <div style="flex:1; min-width:280px;">
@@ -289,8 +305,8 @@ button {
             </p>
         </div>
 
-        <!-- IMAGE (KEEPS ANIMATION) -->
-        <div style="flex:1; min-width:280px; display:flex; justify-content:center;">
+        <!-- IMAGE -->
+        <div style="flex:1; min-width:280px; display:flex; justify-content:flex-end; padding-top:20px;">
             <img src="https://raw.githubusercontent.com/SaveOurSeas/Aquora/main/WhatsApp_Image_2026-05-01_at_00.50.57__1_-removebg-preview.png"
                  class="fade-slide"
                  style="width:100%; max-width:320px; border-radius:16px; box-shadow:0 10px 20px rgba(0,183,255,0.2);">
@@ -353,7 +369,7 @@ button {
 
     </div>
 
-    <!-- CONNECT (ONLY ONCE — FIXED DUPLICATE) -->
+    <!-- CONNECT -->
     <div class="hero" style="margin-top:60px">
 
         <h2>Connect with Aquora</h2>
