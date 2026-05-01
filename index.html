@@ -246,10 +246,7 @@ button {
 </head>
 
 <body>
-<div class="top-logo">
-    <img src="https://github.com/SaveOurSeas/Aquora/blob/main/WhatsApp%20Image%202026-04-05%20at%2016.47.44%20(1).jpeg?raw=true"
-         alt="Aquora Logo">
-</div>
+
 <!-- BACKGROUND -->
 <div class="background">
     <div class="grid"></div>
@@ -273,24 +270,35 @@ button {
 
 <!-- HOME -->
 <section id="home" class="active">
-<div style="position:absolute; right:30px; top:450px;">
-<img src="https://raw.githubusercontent.com/SaveOurSeas/Aquora/main/WhatsApp_Image_2026-05-01_at_00.50.57__1_-removebg-preview.png"
-     class="fade-slide"
-     style="width:320px; border-radius:16px; box-shadow:0 10px 20px rgba(0,183,255,0.2); margin-top:30px;">
-</div>
-    <div class="hero">
-        <h1>Aquora System</h1>
 
-        <p>
-            We all love summer beaches and clear oceans — but beneath the surface, a silent problem is growing.
-            Water quality is changing in ways most people never see until it’s too late.
-        </p>
+    <!-- HERO WITH IMAGE + TEXT (CLEAN LAYOUT) -->
+    <div class="hero" style="display:flex; align-items:center; gap:40px; flex-wrap:wrap;">
 
-        <p>
-            High turbidity and unstable pH levels reduce sunlight penetration,
-            damaging coral reefs, underwater plants, and the marine food chain that depends on them.
-        </p>
+        <!-- TEXT -->
+        <div style="flex:1; min-width:280px;">
+            <h1>Aquora System</h1>
 
+            <p>
+                We all love summer beaches and clear oceans — but beneath the surface, a silent problem is growing.
+                Water quality is changing in ways most people never see until it’s too late.
+            </p>
+
+            <p>
+                High turbidity and unstable pH levels reduce sunlight penetration,
+                damaging coral reefs, underwater plants, and the marine food chain that depends on them.
+            </p>
+        </div>
+
+        <!-- IMAGE (KEEPS ANIMATION) -->
+        <div style="flex:1; min-width:280px; display:flex; justify-content:center;">
+            <img src="https://raw.githubusercontent.com/SaveOurSeas/Aquora/main/WhatsApp_Image_2026-05-01_at_00.50.57__1_-removebg-preview.png"
+                 class="fade-slide"
+                 style="width:100%; max-width:320px; border-radius:16px; box-shadow:0 10px 20px rgba(0,183,255,0.2);">
+        </div>
+
+    </div>
+
+    <!-- CARDS -->
     <div class="grid3">
 
         <div class="card">
@@ -310,6 +318,7 @@ button {
 
     </div>
 
+    <!-- SYSTEM -->
     <div class="hero" style="margin-top:60px">
 
         <h2>Our system</h2>
@@ -343,42 +352,34 @@ button {
         </div>
 
     </div>
-<div class="hero" style="margin-top:60px">
 
-    <h2>Connect with Aquora</h2>
-
-    <p>
-        Follow our development journey, system tests, and real-world demonstrations.
-        We share updates, field experiments, and progress directly from Aquora.
-    </p>
-
-</div>
+    <!-- CONNECT (ONLY ONCE — FIXED DUPLICATE) -->
     <div class="hero" style="margin-top:60px">
 
-    <h2>Connect with Aquora</h2>
+        <h2>Connect with Aquora</h2>
 
-    <p>
-        Follow our development journey, system tests, and real-world demonstrations.
-        We share updates, field experiments, and progress directly from Aquora.
-    </p>
+        <p>
+            Follow our development journey, system tests, and real-world demonstrations.
+            We share updates, field experiments, and progress directly from Aquora.
+        </p>
 
-    <div style="display:flex; gap:15px; margin-top:15px; flex-wrap:wrap;">
+        <div style="display:flex; gap:15px; margin-top:15px; flex-wrap:wrap;">
 
-        <a href="https://www.instagram.com/aquora.co?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
-           target="_blank"
-           style="color:white; text-decoration:none; padding:10px 14px; background:rgba(255,255,255,0.08); border-radius:10px;">
-           Instagram
-        </a>
+            <a href="https://www.instagram.com/aquora.co?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+               target="_blank"
+               style="color:white; text-decoration:none; padding:10px 14px; background:rgba(255,255,255,0.08); border-radius:10px;">
+               Instagram
+            </a>
 
-        <a href="https://www.tiktok.com/@aquora.co"
-           target="_blank"
-           style="color:white; text-decoration:none; padding:10px 14px; background:rgba(255,255,255,0.08); border-radius:10px;">
-           TikTok
-        </a>
+            <a href="https://www.tiktok.com/@aquora.co"
+               target="_blank"
+               style="color:white; text-decoration:none; padding:10px 14px; background:rgba(255,255,255,0.08); border-radius:10px;">
+               TikTok
+            </a>
+
+        </div>
 
     </div>
-
-</div>
 
 </section>
 
