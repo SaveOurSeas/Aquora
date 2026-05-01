@@ -211,9 +211,33 @@ button {
     bottom: 20px;
     right: 20px;
     background: #00b7ff;
-    padding: 12px 18px;
+    padding: 14px 18px;
     border-radius: 12px;
     display: none;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    animation: slideIn 0.4s ease;
+}
+
+#popup button {
+    margin: 0;
+    padding: 8px 12px;
+    background: white;
+    color: #00b7ff;
+    border-radius: 8px;
+    font-size: 13px;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(120%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
 .fade-slide {
     opacity: 0;
@@ -454,8 +478,12 @@ button {
     <button onclick="checkout()">Checkout</button>
 </section>
 
-<div id="popup"></div>
-
+<div id="popup">
+    <span id="popupText"></span>
+    <button id="popupBtn" onclick="goShop()" style="margin-left:10px; display:none;">
+        Go to Shop
+    </button>
+</div>
 <script>
 
 let cart = [];
@@ -516,10 +544,10 @@ function checkout(){
         total += i.price * i.qty;
     });
 
-    if(total <= 0){
-        toast("Please add to order");
-        return;
-    }
+if(cart.length === 0){
+    toast("Please add items to your order", true);
+    return;
+}
 
     let msg = "Aquora Order:%0A";
 
@@ -537,20 +565,26 @@ function checkout(){
     toast("Order sent");
 }
 
-function toast(text){
-    let p = document.getElementById("popup");
-    p.innerText = text;
-    p.style.display = "block";
+function toast(text, showButton = false){
+    let popup = document.getElementById("popup");
+    let textEl = document.getElementById("popupText");
+    let btn = document.getElementById("popupBtn");
 
-    setTimeout(()=>p.style.display = "none", 1500);
+    textEl.innerText = text;
+
+    // show/hide button
+    btn.style.display = showButton ? "inline-block" : "none";
+
+    popup.style.display = "flex";
+
+    // stay longer (3 seconds)
+    setTimeout(() => {
+        popup.style.display = "none";
+    }, 3000);
 }
-    const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add("show");
-        }
-    });
-});
+function goShop(){
+    show('shop');
+}
 
 document.querySelectorAll(".fade-slide").forEach(el => {
     observer.observe(el);
