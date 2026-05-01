@@ -272,23 +272,44 @@ button {
 
 
 
+
 <section id="home" class="active">
 
-    <div class="hero">
-        <h1>Aquora System</h1>
+    <!-- HEADER (LOGO TOP RIGHT + NAV TOP LEFT) -->
+    <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 0;">
 
-        <p>
-            We all love summer beaches and clear oceans — but beneath the surface, a silent problem is growing.
-            Water quality is changing in ways most people never see until it’s too late.
-        </p>
+        <!-- NAV -->
+        <div style="display:flex; gap:15px;">
+            <a onclick="show('home')" style="color:white; cursor:pointer;">Home</a>
+            <a onclick="show('shop')" style="color:white; cursor:pointer;">Shop</a>
+            <a onclick="show('cart')" style="color:white; cursor:pointer;">Cart</a>
+        </div>
 
-        <p>
-            High turbidity and unstable pH levels reduce sunlight penetration,
-            damaging coral reefs, underwater plants, and the marine food chain that depends on them.
-        </p>
+        <!-- LOGO -->
+        <img src="YOUR_LOGO_LINK"
+             style="width:45px; height:45px; border-radius:10px; object-fit:cover;">
+    </div>
 
-        <!-- HERO IMAGE (ONLY CHANGE: slight right shift) -->
-        <div style="display:flex; justify-content:flex-end; margin-top:20px; padding-right:15px;">
+    <!-- HERO -->
+    <div class="hero" style="display:flex; align-items:center; gap:40px; flex-wrap:wrap; margin-top:20px;">
+
+        <!-- TEXT -->
+        <div style="flex:1; min-width:280px;">
+            <h1>Aquora System</h1>
+
+            <p>
+                We all love summer beaches and clear oceans — but beneath the surface, a silent problem is growing.
+                Water quality is changing in ways most people never see until it’s too late.
+            </p>
+
+            <p>
+                High turbidity and unstable pH levels reduce sunlight penetration,
+                damaging coral reefs, underwater plants, and the marine food chain that depends on them.
+            </p>
+        </div>
+
+        <!-- IMAGE -->
+        <div style="flex:1; min-width:280px; display:flex; justify-content:flex-end; padding-top:20px;">
             <img src="https://raw.githubusercontent.com/SaveOurSeas/Aquora/main/WhatsApp_Image_2026-05-01_at_00.50.57__1_-removebg-preview.png"
                  class="fade-slide"
                  style="width:100%; max-width:320px; border-radius:16px; box-shadow:0 10px 20px rgba(0,183,255,0.2);">
@@ -296,6 +317,7 @@ button {
 
     </div>
 
+    <!-- CARDS -->
     <div class="grid3">
 
         <div class="card">
@@ -315,6 +337,7 @@ button {
 
     </div>
 
+    <!-- SYSTEM -->
     <div class="hero" style="margin-top:60px">
 
         <h2>Our system</h2>
@@ -349,6 +372,7 @@ button {
 
     </div>
 
+    <!-- CONNECT -->
     <div class="hero" style="margin-top:60px">
 
         <h2>Connect with Aquora</h2>
